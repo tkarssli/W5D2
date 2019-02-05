@@ -1,0 +1,14 @@
+<h1>New Post!</h1>
+
+<form action="<%=posts_url%>" method="post">  
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+<label > Title: <input type="text" name="post[title]"></label>
+<label > URL: <input type="text" name="post[url]"></label>
+  <label > Content: <textarea name="post[content]"></textarea></label>
+<select name="post[sub_ids]">
+<% Sub.all.each do |sub| %>
+  <option value="<%= sub.id %>%"><%= sub.title %></option>
+<% end %>
+</select>
+  <input type="submit" value="Submit">
+</form>

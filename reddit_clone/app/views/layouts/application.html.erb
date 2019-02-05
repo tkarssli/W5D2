@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <a href="<%=new_session_url%>">Sign In</a>
+    <form action="<%=session_url%>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+      <input type="submit" value="Sign Out">
+    </form>
+
+
+
+    <%=  flash[:errors] %>
     <%= yield %>
+
+    
   </body>
 </html>
