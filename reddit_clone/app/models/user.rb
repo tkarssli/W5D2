@@ -48,4 +48,16 @@ class User < ApplicationRecord
     self.password_digest = BCrypt::Password.create(password)
   end
 
+
+  has_many :comments,
+    foreign_key: :author_id,
+    class_name: :Comment
+
+  has_many :subs,
+    foreign_key: :author_id,
+    class_name: :Sub
+
+  has_many :posts,
+    foreign_key: :author_id,
+    class_name: :Post
 end

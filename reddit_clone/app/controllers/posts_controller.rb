@@ -7,20 +7,16 @@ class PostsController < ApplicationController
   end
 
   def create
+    # debugger
     @post = Post.new(post_params)
     @post.author_id = current_user.id
-    @post.sub_id = params[:sub_id]
+    if @post.save!
+      @post.sub_ids = params[:post][:sub_ids]
 
-    sub_ids = post_params[:sub_ids]
-
-    sub_ids.each do |sub_id|
-      PostSub.new(post_id: @post.id, sub_id: sub_id)
-    end
-   
-
-    if @post.save
-      redirect_to sub_url(@post.sub)
+      redirect_to post_url(@post)
     else 
+      flash[:errors] = @post.errors.full_messages
+      render :new
     end
   end
 
@@ -29,7 +25,8 @@ class PostsController < ApplicationController
 
     if @post && @post.update_attributes(post_params)
       @post.save
-      redirect_to sub_url(@post.sub)
+      @post.sub_ids = params[:post][:sub_ids]
+      redirect_to post_url(@post)
     else 
       flash[:errors] = @post.errors.full_messages
       render :edit
@@ -38,6 +35,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @sub_ids = @post.subs.map{|sub| sub.id}
     render :edit
   end
 

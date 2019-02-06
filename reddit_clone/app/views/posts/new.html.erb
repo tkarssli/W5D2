@@ -5,10 +5,10 @@
 <label > Title: <input type="text" name="post[title]"></label>
 <label > URL: <input type="text" name="post[url]"></label>
   <label > Content: <textarea name="post[content]"></textarea></label>
-<select name="post[sub_ids]">
 <% Sub.all.each do |sub| %>
-  <option value="<%= sub.id %>%"><%= sub.title %></option>
+<label><%= sub.title %>
+  <input type="checkbox" name="post[sub_ids][]" value="<%= sub.id %>">
+</label>
 <% end %>
-</select>
   <input type="submit" value="Submit">
 </form>

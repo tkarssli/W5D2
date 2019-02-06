@@ -3,4 +3,13 @@
 
 <p><%=@sub.description %></p>
 
+
 <a href="<%=new_post_url%>">New Post</a>
+
+<ul>
+<% @posts.each do |post| %>
+  <li>
+    <a href="<%=post_url(post)%>"><%=post.title%></a>
+  </li>
+<% end %>
+</ul>
